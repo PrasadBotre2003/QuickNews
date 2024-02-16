@@ -13,14 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.loc.newsapp.presentation.Dimens.IndicatorSize
-import com.loc.newsapp.ui.theme.BlueGray
+
 
 @Composable
 fun PageIndicator(modifier: Modifier = Modifier,
                   pageSize: Int,
                   selectedPage : Int,
                   selectedColor:Color = MaterialTheme.colorScheme.primary,
-                  unselectedColor:Color = BlueGray){
+                  unselectedColor:Color = Color.LightGray){
 Row (modifier = Modifier, horizontalArrangement = Arrangement.SpaceBetween,
     ){
     repeat(pageSize){

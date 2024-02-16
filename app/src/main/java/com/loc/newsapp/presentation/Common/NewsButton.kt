@@ -33,7 +33,7 @@ fun NewsTextButton(text:String, onClick:()->Unit) {
     TextButton(onClick = onClick) {
         Text(text = text, style = MaterialTheme.
         typography.labelMedium.
-        copy(fontWeight = FontWeight.SemiBold), color = Color.LightGray)
+        copy(fontWeight = FontWeight.SemiBold), color = Color.White)
     }
 
 

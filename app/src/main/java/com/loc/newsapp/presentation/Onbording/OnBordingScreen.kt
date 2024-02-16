@@ -29,7 +29,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBordingScreen() {
+fun OnBordingScreen(
+    event: (OnBordingEvent)->Unit
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
         val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
@@ -41,24 +43,26 @@ fun OnBordingScreen() {
             derivedStateOf {
 
                 when (pagerState.currentPage) {
-         0-> listOf("","Next")
-                    1-> listOf("Back","Next")
-                    2-> listOf("Back","Get Started ")
-                else-> listOf("","")
+                    0 -> listOf("", "Next")
+                    1 -> listOf("Back", "Next")
+                    2 -> listOf("Back", "Get Started ")
+                    else -> listOf("", "")
                 }
             }
         }
-        HorizontalPager(state = pagerState) {
-            index ->
+        HorizontalPager(state = pagerState) { index ->
             OnBordingPage(modifier = Modifier, page = pages[index])
-            
+
         }
         Spacer(modifier = Modifier.weight(1f))
-        Row (modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = mediumpadding2)
-            .navigationBarsPadding(),
-            horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = mediumpadding2)
+                .navigationBarsPadding(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        )
         {
             PageIndicator(
                 modifier = Modifier.width(52.dp),
@@ -84,11 +88,13 @@ fun OnBordingScreen() {
                 NewsButton(text = buttonState.value[1],
                     onClick = {
                         scope.launch {
-                            if (pagerState.currentPage == 3) {
-                                //navigate no home screen
+                            if (pagerState.currentPage == 2) {
+                               event(OnBordingEvent.SaveAppEntry)
                             } else {
+
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1
+
                                 )
                             }
                         }
@@ -98,6 +104,8 @@ fun OnBordingScreen() {
 
             }
         }
+     //   Spacer(modifier = Modifier.weight(3f))
     }
 
-}
+    }
+
